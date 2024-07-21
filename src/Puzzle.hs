@@ -2,7 +2,7 @@ module Puzzle where
 
 import qualified Data.Map as M
 
-data Cell = Solved Int | Candidates [Int] deriving (Show, Eq)
+data Cell = Solved Int | Unsolved deriving (Show, Eq)
 
 type Item = (Int, Int, Cell)
 

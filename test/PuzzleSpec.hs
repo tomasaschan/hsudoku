@@ -48,37 +48,37 @@ spec = describe "puzzle" $ do
       actual
         `shouldBe` [
                      -- row 0
-                     [ (0, 0, Candidates [1 .. 9]),
-                       (0, 1, Candidates [1 .. 9]),
+                     [ (0, 0, Unsolved),
+                       (0, 1, Unsolved),
                        (0, 2, Solved 4),
                        (0, 3, Solved 3),
-                       (0, 4, Candidates [1 .. 9]),
-                       (0, 5, Candidates [1 .. 9]),
+                       (0, 4, Unsolved),
+                       (0, 5, Unsolved),
                        (0, 6, Solved 2),
-                       (0, 7, Candidates [1 .. 9]),
+                       (0, 7, Unsolved),
                        (0, 8, Solved 9)
                      ],
                      -- col 0
-                     [ (0, 0, Candidates [1 .. 9]),
-                       (1, 0, Candidates [1 .. 9]),
-                       (2, 0, Candidates [1 .. 9]),
-                       (3, 0, Candidates [1 .. 9]),
+                     [ (0, 0, Unsolved),
+                       (1, 0, Unsolved),
+                       (2, 0, Unsolved),
+                       (3, 0, Unsolved),
                        (4, 0, Solved 1),
-                       (5, 0, Candidates [1 .. 9]),
+                       (5, 0, Unsolved),
                        (6, 0, Solved 6),
-                       (7, 0, Candidates [1 .. 9]),
-                       (8, 0, Candidates [1 .. 9])
+                       (7, 0, Unsolved),
+                       (8, 0, Unsolved)
                      ],
                      -- subgrid 0
-                     [ (0, 0, Candidates [1 .. 9]),
-                       (0, 1, Candidates [1 .. 9]),
+                     [ (0, 0, Unsolved),
+                       (0, 1, Unsolved),
                        (0, 2, Solved 4),
-                       (1, 0, Candidates [1 .. 9]),
-                       (1, 1, Candidates [1 .. 9]),
+                       (1, 0, Unsolved),
+                       (1, 1, Unsolved),
                        (1, 2, Solved 5),
-                       (2, 0, Candidates [1 .. 9]),
+                       (2, 0, Unsolved),
                        (2, 1, Solved 7),
-                       (2, 2, Candidates [1 .. 9])
+                       (2, 2, Unsolved)
                      ]
                    ]
 
@@ -90,34 +90,34 @@ spec = describe "puzzle" $ do
                      -- row 4
                      [ (4, 0, Solved 1),
                        (4, 1, Solved 9),
-                       (4, 2, Candidates [1 .. 9]),
-                       (4, 3, Candidates [1 .. 9]),
-                       (4, 4, Candidates [1 .. 9]),
+                       (4, 2, Unsolved),
+                       (4, 3, Unsolved),
+                       (4, 4, Unsolved),
                        (4, 5, Solved 7),
                        (4, 6, Solved 4),
-                       (4, 7, Candidates [1 .. 9]),
-                       (4, 8, Candidates [1 .. 9])
+                       (4, 7, Unsolved),
+                       (4, 8, Unsolved)
                      ],
                      -- col 8
                      [ (0, 8, Solved 9),
                        (1, 8, Solved 1),
                        (2, 8, Solved 3),
                        (3, 8, Solved 7),
-                       (4, 8, Candidates [1 .. 9]),
-                       (5, 8, Candidates [1 .. 9]),
+                       (4, 8, Unsolved),
+                       (5, 8, Unsolved),
                        (6, 8, Solved 5),
-                       (7, 8, Candidates [1 .. 9]),
-                       (8, 8, Candidates [1 .. 9])
+                       (7, 8, Unsolved),
+                       (8, 8, Unsolved)
                      ],
                      -- subgrid 8
-                     [ (3, 6, Candidates [1 .. 9]),
+                     [ (3, 6, Unsolved),
                        (3, 7, Solved 8),
                        (3, 8, Solved 7),
                        (4, 6, Solved 4),
-                       (4, 7, Candidates [1 .. 9]),
-                       (4, 8, Candidates [1 .. 9]),
-                       (5, 6, Candidates [1 .. 9]),
-                       (5, 7, Candidates [1 .. 9]),
-                       (5, 8, Candidates [1 .. 9])
+                       (4, 7, Unsolved),
+                       (4, 8, Unsolved),
+                       (5, 6, Unsolved),
+                       (5, 7, Unsolved),
+                       (5, 8, Unsolved)
                      ]
                    ]

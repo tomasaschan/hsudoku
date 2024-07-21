@@ -6,7 +6,7 @@ import Text.PrettyPrint hiding ((<>))
 
 prettyCell :: Cell -> String
 prettyCell (Solved n) = show n
-prettyCell (Candidates _) = " "
+prettyCell Unsolved = " "
 
 pretty :: Puzzle -> String
 pretty p = render $ text $ (top <> rows <> bottom)
