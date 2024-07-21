@@ -28,6 +28,7 @@ library
       Puzzle
       Puzzle.Parse
       Puzzle.Print
+      Solver
   other-modules:
       Paths_hsudoku
   autogen-modules:
