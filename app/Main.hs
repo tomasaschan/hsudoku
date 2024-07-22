@@ -1,6 +1,5 @@
 module Main (main) where
 
-import Data.Maybe
 import System.Environment
 
 import Puzzle
@@ -38,7 +37,3 @@ solveAll (p : ps) = do
     else return ()
 
   solveAll ps
-
-
-pack :: Puzzle -> String
-pack p = concat . fmap (show . fromMaybe 0) $ [at r c p | r <- allRows, c <- allColumns]

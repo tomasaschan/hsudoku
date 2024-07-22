@@ -24,3 +24,6 @@ sideBySide :: [String] -> String
 sideBySide [] = ""
 sideBySide [single] = single
 sideBySide (a : b : rest) = sideBySide (unlines (zipWithLongest (\x y -> fromMaybe "" x <> "  " <> fromMaybe "" y) (printf "%-19s" <$> lines a) (lines b)) : rest)
+
+pack :: Puzzle -> String
+pack p = concatMap (show . fromMaybe 0) $ [at r c p | r <- allRows, c <- allColumns]
