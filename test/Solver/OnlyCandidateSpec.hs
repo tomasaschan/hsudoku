@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 module Solver.OnlyCandidateSpec where
 
 import Puzzle
@@ -16,8 +18,8 @@ spec = describe "only candidates technique" $ do
                       (4, 5, 6),
                       (6, 5, 8),
                       (7, 2, 2)
-                    ]
+                    ] :: [Edit]
 
     let actual = onlyCandidate p
 
-    actual `shouldBe` expected
+    actual `shouldSatisfy` (\case Just e -> e `elem` expected; _ -> False)

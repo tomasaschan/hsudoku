@@ -5,7 +5,7 @@ import Puzzle
 import Solver
 
 onlyCandidate :: Technique
-onlyCandidate p = mapMaybe (singleCandidate . getCandidates) . unsolved $ p
+onlyCandidate p = listToMaybe . mapMaybe (singleCandidate . getCandidates) . unsolved $ p
   where
     singleCandidate (r,c, [v]) = Just (r, c, v)
     singleCandidate _ = Nothing

@@ -1,6 +1,5 @@
 module Main (main) where
 
-import Data.Map
 import Puzzle
 import Puzzle.Print
 import Solver
@@ -21,18 +20,14 @@ solveAll (p : ps) = do
   let problem = showPuzzle "Unsolved:" puzzle'
 
   let cands = countCandidates puzzle'
-  let combinations = product $ elems cands
-  let candidateCounts = showPuzzle ("Candidates (n=" <> show combinations <> "):") cands
-
-  putStr "Input: "
-  putStrLn p
-  putStrLn $ sideBySide [problem, candidateCounts]
+  let candidateCounts = showPuzzle ("Candidates:") cands
 
   let solution =
-        case solve onlyCandidate puzzle' of
-          (Nothing, n) -> "No solution found after " <> show n <> " steps."
-          (Just solved, n) -> showPuzzle ("Solved in " <> show n <> " steps:") solved
+        case trySolve  onlyCandidate puzzle' of
+          p' | isSolved p' -> showPuzzle "Solved!" p'
+          p' -> showPuzzle "Failed :(" p'
 
-  putStrLn solution
+  putStrLn ("Input: " <> p)
+  putStrLn $ sideBySide [problem, candidateCounts, solution]
 
   solveAll ps

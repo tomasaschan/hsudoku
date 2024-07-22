@@ -28,7 +28,6 @@ library
       Puzzle
       Puzzle.Print
       Solver
-      Solver.BruteForce
       Solver.OnlyCandidate
   other-modules:
       Paths_hsudoku
