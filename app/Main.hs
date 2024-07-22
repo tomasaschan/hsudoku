@@ -1,7 +1,6 @@
 module Main (main) where
 
 import Data.Map
-import Data.Maybe
 import Puzzle
 import Puzzle.Print
 import Solver
@@ -32,12 +31,11 @@ solveAll (p : ps) = do
 
   solveAll ps
 
+{-# HLINT ignore "Use catMaybes" #-}
 countCandidates :: Puzzle -> Puzzle
-countCandidates p = fromList $ catMaybes $ fmap lft [((r, c), v r c) | r <- allRows, c <- allColumns]
+countCandidates p = mapMaybe id $ fromList ([((r, c), v r c) | r <- allRows, c <- allColumns])
   where
     v r c =
       case at r c p of
         Nothing -> Just $ length $ candidates r c p
         Just _ -> Nothing
-    lft (_, Nothing) = Nothing
-    lft ((r, c), Just v') = Just ((r, c), v')

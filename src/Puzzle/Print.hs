@@ -23,4 +23,4 @@ showPuzzle label p = label <> "\n" <> pretty p
 sideBySide :: [String] -> String
 sideBySide [] = ""
 sideBySide [single] = single
-sideBySide (a : b : rest) = sideBySide ((unlines $ zipWithLongest (\x y -> (fromMaybe "" x) <> "  " <> (fromMaybe "" y)) (printf "%-19s" <$> lines a) (lines b)) : rest)
+sideBySide (a : b : rest) = sideBySide (unlines (zipWithLongest (\x y -> fromMaybe "" x <> "  " <> fromMaybe "" y) (printf "%-19s" <$> lines a) (lines b)) : rest)

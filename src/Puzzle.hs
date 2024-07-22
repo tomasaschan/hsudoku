@@ -51,7 +51,7 @@ isSolved :: Puzzle -> Bool
 isSolved = null . unsolved
 
 isValid :: Puzzle -> Bool
-isValid p = not $ any (null . \(r, c) -> candidates r c p) $ [(r, c) | r <- allRows, c <- allColumns]
+isValid p = not . any null $ [candidates r c p | r <- allRows, c <- allColumns]
 
 unsolved :: Puzzle -> [(Int, Int)]
 unsolved p = [(r, c) | r <- allRows, c <- allColumns, isNothing . at r c $ p]
