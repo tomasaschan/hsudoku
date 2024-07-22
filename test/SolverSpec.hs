@@ -1,7 +1,9 @@
 module SolverSpec where
 
 import Puzzle
+import Puzzle.Print
 import Solver
+import Solver.NakedPairs
 import Solver.OnlyCandidate
 import Test.Hspec
 
@@ -20,8 +22,9 @@ spec = describe "solver" $ do
     trySolve onlyCandidate (puzzle problem) `shouldBe` puzzle solved
 
   it "solves ron's example" $ do
-    pendingWith "needs naked pairs too before we can solve it"
     let problem = "005024013006031000001089507160097005758300090009805000507060324010450970043002000"
     let solved = "985724613476531289231689547164297835758316492329845761597168324612453978843972156"
 
-    trySolve onlyCandidate (puzzle problem) `shouldBe` puzzle solved
+    let solver = trySolve (combine [onlyCandidate, nakedPairs])
+
+    pack (solver (puzzle problem)) `shouldBe` solved

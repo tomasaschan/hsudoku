@@ -5,6 +5,7 @@ import System.Environment
 import Puzzle
 import Puzzle.Print
 import Solver
+import Solver.NakedPairs
 import Solver.OnlyCandidate
 
 main :: IO ()
@@ -23,7 +24,7 @@ solveAll (p : ps) = do
   let cands = countCandidates puzzle'
   let candidateCounts = showPuzzle ("Candidates:") cands
 
-  let solved = trySolve onlyCandidate puzzle'
+  let solved = trySolve (combine [onlyCandidate, nakedPairs]) puzzle'
   let solution =
         case solved of
           p' | isSolved p' -> showPuzzle "Solved!" p'
