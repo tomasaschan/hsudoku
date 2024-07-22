@@ -4,6 +4,7 @@ import Data.Map
 import Puzzle
 import Puzzle.Print
 import Solver
+import Solver.OnlyCandidate
 import System.Environment
 
 main :: IO ()
@@ -28,7 +29,7 @@ solveAll (p : ps) = do
   putStrLn $ sideBySide [problem, candidateCounts]
 
   let solution =
-        case solve puzzle' of
+        case solve onlyCandidate puzzle' of
           (Nothing, n) -> "No solution found after " <> show n <> " steps."
           (Just solved, n) -> showPuzzle ("Solved in " <> show n <> " steps:") solved
 

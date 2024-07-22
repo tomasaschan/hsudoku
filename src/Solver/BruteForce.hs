@@ -1,6 +1,7 @@
 module Solver.BruteForce where
 
 import Puzzle
+import Solver
 
-nexts :: Puzzle -> [Edit]
+nexts :: Technique
 nexts p = [(r, c, v) | (r, c) <- unsolved p, v <- candidates r c p]

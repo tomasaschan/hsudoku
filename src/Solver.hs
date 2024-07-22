@@ -1,13 +1,12 @@
 module Solver where
 
-import Data.Map (fromList)
+import Data.Map
 import Debug.Trace
 import Puzzle
 import Puzzle.Print
-import qualified Solver.BruteForce as BF
 
-solve :: Puzzle -> (Maybe Puzzle, Int)
-solve p = dfs BF.nexts [p] 0
+solve :: Technique -> Puzzle -> (Maybe Puzzle, Int)
+solve t p = dfs t [p] 0
 
 type Technique = Puzzle -> [Edit]
 

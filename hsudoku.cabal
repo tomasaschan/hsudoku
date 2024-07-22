@@ -29,6 +29,7 @@ library
       Puzzle.Print
       Solver
       Solver.BruteForce
+      Solver.OnlyCandidate
   other-modules:
       Paths_hsudoku
   autogen-modules:
@@ -73,6 +74,7 @@ test-suite hsudoku-test
   main-is: Spec.hs
   other-modules:
       PuzzleSpec
+      Solver.OnlyCandidateSpec
       SolverSpec
       Paths_hsudoku
   autogen-modules:
