@@ -28,6 +28,7 @@ library
       Puzzle
       Puzzle.Print
       Solver
+      Solver.NakedPairs
       Solver.OnlyCandidate
   other-modules:
       Paths_hsudoku
@@ -73,6 +74,7 @@ test-suite hsudoku-test
   main-is: Spec.hs
   other-modules:
       PuzzleSpec
+      Solver.NakedPairsSpec
       Solver.OnlyCandidateSpec
       SolverSpec
       Paths_hsudoku
