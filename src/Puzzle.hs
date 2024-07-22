@@ -32,22 +32,14 @@ puzzle = M.fromList . fmap oneCell . filter nonzero . zip [0 .. 81]
 at :: Int -> Int -> Puzzle -> Maybe Int
 at r c = M.lookup (r, c)
 
-type Component = [Item]
+type Component = [(Int, Int)]
 
 -- | Returns the components (row, column and subgrid) that contain the cell at (r, c)
-components :: Int -> Int -> Puzzle -> [Component]
-components r c p =
-  fmap
-    catMaybes
-    [ [item r c' | c' <- allColumns],
-      [item r' c | r' <- allRows],
-      [item r' c' | r' <- sub r, c' <- sub c]
-    ]
+components :: Int -> Int -> [Component]
+components r c = fmap (filter (not . (==(r,c)))) $ items
   where
+    items = [ [(r, c') | c' <- allColumns], [(r',c) | r' <- allRows], [(r', c') | r' <- sub r, c' <- sub c]    ]
     sub x = [x' .. x' + 2] where x' = 3 * (x `div` 3)
-    item r' c' = case at r' c' p of
-      Just v -> Just (r', c', v)
-      Nothing -> Nothing
 
 isSolved :: Puzzle -> Bool
 isSolved = null . unsolved
@@ -61,7 +53,7 @@ unsolved p = [(r, c) | r <- allRows, c <- allColumns, isNothing . at r c $ p]
 candidates :: Int -> Int -> Puzzle -> [Int]
 candidates r c p = case at r c p of
   Just v -> [v]
-  Nothing -> allNumbers `without` (concatMap (fmap value) . components r c $ p)
+  Nothing -> allNumbers `without` (catMaybes . (fmap (\(r', c') -> at r' c' p)) . concat $ components r c)
   where
     without xs ys = filter (`notElem` ys) xs
 
