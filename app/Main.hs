@@ -1,10 +1,12 @@
 module Main (main) where
 
+import Data.Maybe
+import System.Environment
+
 import Puzzle
 import Puzzle.Print
 import Solver
 import Solver.OnlyCandidate
-import System.Environment
 
 main :: IO ()
 main = do
@@ -22,12 +24,21 @@ solveAll (p : ps) = do
   let cands = countCandidates puzzle'
   let candidateCounts = showPuzzle ("Candidates:") cands
 
+  let solved = trySolve onlyCandidate puzzle'
   let solution =
-        case trySolve  onlyCandidate puzzle' of
+        case solved of
           p' | isSolved p' -> showPuzzle "Solved!" p'
           p' -> showPuzzle "Failed :(" p'
 
   putStrLn ("Input: " <> p)
   putStrLn $ sideBySide [problem, candidateCounts, solution]
 
+  if not $ isSolved solved
+    then putStrLn $ "State at end: " <> pack solved
+    else return ()
+
   solveAll ps
+
+
+pack :: Puzzle -> String
+pack p = concat . fmap (show . fromMaybe 0) $ [at r c p | r <- allRows, c <- allColumns]
