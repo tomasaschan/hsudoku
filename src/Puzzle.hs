@@ -5,13 +5,22 @@ import Data.Maybe
 
 type Item = (Int, Int, Int)
 
+allNumbers :: [Int]
+allNumbers = [1 .. 9]
+
+allColumns :: [Int]
+allColumns = [0 .. 8]
+
+allRows :: [Int]
+allRows = [0 .. 8]
+
 value :: Item -> Int
 value (_, _, v) = v
 
 type Puzzle = M.Map (Int, Int) Int
 
 puzzle :: String -> Puzzle
-puzzle = M.fromList . fmap oneCell . filter nonzero . zip [0 ..]
+puzzle = M.fromList . fmap oneCell . filter nonzero . zip [0 .. 81]
   where
     nonzero (_, c) = c /= '0'
     oneCell (i, c) = ((row i, col i), read [c])
@@ -28,8 +37,8 @@ components :: Int -> Int -> Puzzle -> [Component]
 components r c p =
   fmap
     catMaybes
-    [ [item r c' | c' <- [0 .. 8]],
-      [item r' c | r' <- [0 .. 8]],
+    [ [item r c' | c' <- allColumns],
+      [item r' c | r' <- allRows],
       [item r' c' | r' <- sub r, c' <- sub c]
     ]
   where
@@ -42,12 +51,12 @@ isSolved :: Puzzle -> Bool
 isSolved = null . unsolved
 
 unsolved :: Puzzle -> [(Int, Int)]
-unsolved p = [(r, c) | r <- [0 .. 8], c <- [0 .. 8], isNothing . at r c $ p]
+unsolved p = [(r, c) | r <- allRows, c <- allColumns, isNothing . at r c $ p]
 
 candidates :: Int -> Int -> Puzzle -> [Int]
 candidates r c p = case at r c p of
   Just v -> [v]
-  Nothing -> [1 .. 9] `without` (concatMap (fmap value) . components r c $ p)
+  Nothing -> allNumbers `without` (concatMap (fmap value) . components r c $ p)
   where
     without xs ys = filter (`notElem` ys) xs
 

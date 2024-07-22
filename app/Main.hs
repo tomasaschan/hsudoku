@@ -35,7 +35,7 @@ solveAll (p : ps) = do
   solveAll ps
 
 countCandidates :: Puzzle -> Puzzle
-countCandidates p =   fromList $ catMaybes $ fmap lft  [               ((r,c), v r c)     |        r  <- [0..9],        c <- [0..9]    ]
+countCandidates p =   fromList $ catMaybes $ fmap lft  [               ((r,c), v r c)     |        r  <- allRows,        c <- allColumns    ]
   where v r c =
           case at r c p of
             Nothing -> Just $ length $ candidates r c p
