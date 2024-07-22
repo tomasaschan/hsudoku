@@ -1,8 +1,8 @@
 module Main (main) where
 
+import Data.List.Extra
 import Data.Map
 import Data.Maybe
-import Data.List.Extra
 import Puzzle
 import Puzzle.Print
 import Solver
@@ -22,9 +22,9 @@ solveAll (p : ps) = do
 
   let problem = showPuzzle "Unsolved:" puzzle'
   let solution =
-                  case solve puzzle' of
-                    (Nothing, n) -> "No solution found after " <> show n <> " steps."
-                    (Just solved, n) -> showPuzzle ("Solved in " <> show n <> " steps:") solved
+        case solve puzzle' of
+          (Nothing, n) -> "No solution found after " <> show n <> " steps."
+          (Just solved, n) -> showPuzzle ("Solved in " <> show n <> " steps:") solved
 
   let candidateCounts = showPuzzle "Candidates:" $ countCandidates puzzle'
 
@@ -35,13 +35,14 @@ solveAll (p : ps) = do
   solveAll ps
 
 countCandidates :: Puzzle -> Puzzle
-countCandidates p =   fromList $ catMaybes $ fmap lft  [               ((r,c), v r c)     |        r  <- allRows,        c <- allColumns    ]
-  where v r c =
-          case at r c p of
-            Nothing -> Just $ length $ candidates r c p
-            Just _ -> Nothing
-        lft (_, Nothing) = Nothing
-        lft ((r,c), Just v') = Just ((r,c),v')
+countCandidates p = fromList $ catMaybes $ fmap lft [((r, c), v r c) | r <- allRows, c <- allColumns]
+  where
+    v r c =
+      case at r c p of
+        Nothing -> Just $ length $ candidates r c p
+        Just _ -> Nothing
+    lft (_, Nothing) = Nothing
+    lft ((r, c), Just v') = Just ((r, c), v')
 
 showPuzzle :: String -> Puzzle -> String
 showPuzzle label p = label <> "\n" <> pretty p
