@@ -14,6 +14,7 @@ type Technique = Puzzle -> [Edit]
 dfs :: Technique -> [Puzzle] -> Int -> (Maybe Puzzle, Int)
 dfs _ [] n = (Nothing, n)
 dfs _ (p : _) n | isSolved p = (Just p, n)
+dfs t (p : ps) n | not (isValid p) = dfs t ps (n + 1)
 dfs _ _ n | n > 100000 = (Nothing, n)
 dfs t (p : ps) n =
   let es = t p
