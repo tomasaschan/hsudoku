@@ -2,7 +2,6 @@ module PuzzleSpec where
 
 import Data.List (intercalate)
 import Puzzle
-import Puzzle.Parse
 import Puzzle.Print
 import Test.Hspec
 
@@ -36,14 +35,14 @@ spec = describe "puzzle" $ do
               ]
               <> "\n"
 
-      let actual = pretty . cells $ input
+      let actual = pretty . puzzle $ input
       actual `shouldBe` expected
 
   describe "components" $ do
-    let puzzle = cells "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
+    let puzzle' = puzzle "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
 
     it "returns components in the top left correctly" $ do
-      let actual = components 0 0 puzzle
+      let actual = components 0 0 puzzle'
 
       actual
         `shouldBe` [
@@ -65,7 +64,7 @@ spec = describe "puzzle" $ do
                    ]
 
     it "returns components in the mid right correctly" $ do
-      let actual = components 4 8 puzzle
+      let actual = components 4 8 puzzle'
 
       actual
         `shouldBe` [
@@ -88,3 +87,13 @@ spec = describe "puzzle" $ do
                        (4, 6, 4)
                      ]
                    ]
+
+
+  describe "candidates" $ do
+    let puzzle' = puzzle "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
+
+    it "returns candidates in the top left correctly" $ do
+      candidates 0 0 puzzle' `shouldBe` [8]
+
+    it "returns candidates in the mid right correctly" $ do
+      candidates 4 7 puzzle' `shouldBe` [2, 3, 5, 6]
