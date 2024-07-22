@@ -1,8 +1,10 @@
 module Puzzle.Print where
 
-import Data.List (intercalate)
+import Data.List.Extra
+import Data.Maybe
 import Puzzle
 import Text.PrettyPrint hiding ((<>))
+import Text.Printf
 
 pretty :: Puzzle -> String
 pretty p = render $ text $ top <> rows <> bottom
@@ -14,3 +16,11 @@ pretty p = render $ text $ top <> rows <> bottom
     cell r c = maybe " " show (at r c p)
     row r = "┃" <> every3 "┃" "│" (cell r) <> "┃\n"
     rows = every3 "┣━┿━┿━╋━┿━┿━╋━┿━┿━┫\n" "┠─┼─┼─╂─┼─┼─╂─┼─┼─┨\n" row
+
+showPuzzle :: String -> Puzzle -> String
+showPuzzle label p = label <> "\n" <> pretty p
+
+sideBySide :: [String] -> String
+sideBySide [] = ""
+sideBySide [single] = single
+sideBySide (a : b : rest) = sideBySide ((unlines $ zipWithLongest (\x y -> (fromMaybe "" x) <> "  " <> (fromMaybe "" y)) (printf "%-19s" <$> lines a) (lines b)) : rest)

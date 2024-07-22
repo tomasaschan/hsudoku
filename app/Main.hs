@@ -1,13 +1,11 @@
 module Main (main) where
 
-import Data.List.Extra
 import Data.Map
 import Data.Maybe
 import Puzzle
 import Puzzle.Print
 import Solver
 import System.Environment
-import Text.Printf
 
 main :: IO ()
 main = do
@@ -30,7 +28,7 @@ solveAll (p : ps) = do
 
   putStr "Input: "
   putStrLn p
-  putStrLn $ sideBySide problem $ sideBySide candidateCounts solution
+  putStrLn $ sideBySide [problem, candidateCounts, solution]
 
   solveAll ps
 
@@ -43,9 +41,3 @@ countCandidates p = fromList $ catMaybes $ fmap lft [((r, c), v r c) | r <- allR
         Just _ -> Nothing
     lft (_, Nothing) = Nothing
     lft ((r, c), Just v') = Just ((r, c), v')
-
-showPuzzle :: String -> Puzzle -> String
-showPuzzle label p = label <> "\n" <> pretty p
-
-sideBySide :: String -> String -> String
-sideBySide a b = unlines $ zipWithLongest (\x y -> (fromMaybe "" x) <> "  " <> (fromMaybe "" y)) (printf "%-19s" <$> lines a) (lines b)

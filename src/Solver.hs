@@ -1,7 +1,9 @@
 module Solver where
 
+import Data.Map (fromList)
 import Debug.Trace
 import Puzzle
+import Puzzle.Print
 import qualified Solver.BruteForce as BF
 
 solve :: Puzzle -> (Maybe Puzzle, Int)
@@ -16,6 +18,8 @@ dfs _ _ n | n > 100000 = (Nothing, n)
 dfs t (p : ps) n =
   let es = t p
       ps' = fmap (edit p) es
-   in dfs t (ps' <> ps) $ case n `mod` 1000 of
-        0 -> traceShow (n + 1, length ps) (n + 1)
-        _ -> n + 1
+      editDisplay = sideBySide (showPuzzle "Current:" p : fmap (\(r, c, v) -> showPuzzle ("Edit " <> show (r, c, v)) (fromList [((r, c), v)])) es)
+   in (if n < 0 then trace ("trying another " <> show (length es) <> " edits: " <> show es) . trace editDisplay else id) $
+        dfs t (ps' <> ps) $ case n `mod` 1000 of
+          0 -> traceShow (n + 1, length ps) (n + 1)
+          _ -> n + 1
