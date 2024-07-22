@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
 module Puzzle where
 
 import qualified Data.Map as M
@@ -67,3 +69,13 @@ type Edit = (Int, Int, Int)
 
 edit :: Puzzle -> Edit -> Puzzle
 edit p (r, c, v) = M.insert (r, c) v p
+
+
+{-# HLINT countCandidates ignore "Use catMaybes" #-}
+countCandidates :: Puzzle -> Puzzle
+countCandidates p = M.mapMaybe id $ M.fromList ([((r, c), v r c) | r <- allRows, c <- allColumns])
+  where
+    v r c =
+      case at r c p of
+        Nothing -> Just $ length $ candidates r c p
+        Just _ -> Nothing

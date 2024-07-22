@@ -18,24 +18,20 @@ solveAll (p : ps) = do
   let puzzle' = puzzle p
 
   let problem = showPuzzle "Unsolved:" puzzle'
+
+  let cands = countCandidates puzzle'
+  let combinations = product $ elems cands
+  let candidateCounts = showPuzzle ("Candidates (n=" <> show combinations <> "):") cands
+
+  putStr "Input: "
+  putStrLn p
+  putStrLn $ sideBySide [problem, candidateCounts]
+
   let solution =
         case solve puzzle' of
           (Nothing, n) -> "No solution found after " <> show n <> " steps."
           (Just solved, n) -> showPuzzle ("Solved in " <> show n <> " steps:") solved
 
-  let candidateCounts = showPuzzle "Candidates:" $ countCandidates puzzle'
-
-  putStr "Input: "
-  putStrLn p
-  putStrLn $ sideBySide [problem, candidateCounts, solution]
+  putStrLn solution
 
   solveAll ps
-
-{-# HLINT ignore "Use catMaybes" #-}
-countCandidates :: Puzzle -> Puzzle
-countCandidates p = mapMaybe id $ fromList ([((r, c), v r c) | r <- allRows, c <- allColumns])
-  where
-    v r c =
-      case at r c p of
-        Nothing -> Just $ length $ candidates r c p
-        Just _ -> Nothing
