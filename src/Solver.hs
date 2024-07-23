@@ -19,10 +19,13 @@ combine ts p = mapMaybe ($ p) ts & listToMaybe
 data Edit = Solve Coord Int | Eliminate (M.Map Coord [Int]) deriving (Show, Eq)
 
 edit :: Puzzle -> Edit -> Puzzle
-edit p (Solve c v) = M.insert c (Solved v) p
+edit p (Solve c v)   = eliminateFromAffected c v $ M.insert c (Solved v) p
 edit p (Eliminate m) = M.foldrWithKey eliminate p m
-  where
-    eliminate k cs p' =
-      case p' M.! k of
-        (Candidates cs') -> M.insert k (Candidates (filter (`notElem` cs) cs')) p'
-        _                -> p'
+
+eliminate :: Coord -> [Int] -> Puzzle -> Puzzle
+eliminate c cs p' =
+  case p' M.! c of
+    (Candidates cs') -> M.insert c (Candidates (filter (`notElem` cs) cs')) p'
+    _                -> p'
+eliminateFromAffected :: Coord -> Int -> Puzzle -> Puzzle
+eliminateFromAffected (r,c) v p' = foldr (\c' p'' -> eliminate c' [v] p'') p' (concat $ components r c)
