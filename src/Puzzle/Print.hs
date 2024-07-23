@@ -1,10 +1,10 @@
 module Puzzle.Print where
 
-import Data.List.Extra
-import Data.Maybe
-import Puzzle
-import Text.PrettyPrint hiding ((<>))
-import Text.Printf
+import           Data.List.Extra
+import           Data.Maybe
+import           Puzzle
+import           Text.PrettyPrint hiding ((<>))
+import           Text.Printf
 
 pretty :: Puzzle -> String
 pretty p = render $ text $ top <> rows <> bottom

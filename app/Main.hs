@@ -1,11 +1,11 @@
 module Main (main) where
 
-import Puzzle
-import Puzzle.Print
-import Solver
-import Solver.NakedPairs
-import Solver.OnlyCandidate
-import System.Environment
+import           Puzzle
+import           Puzzle.Print
+import           Solver
+import           Solver.NakedPairs
+import           Solver.OnlyCandidate
+import           System.Environment
 
 main :: IO ()
 main = do
@@ -27,7 +27,7 @@ solveAll (p : ps) = do
   let solution =
         case solved of
           p' | isSolved p' -> showPuzzle "Solved!" p'
-          p' -> showPuzzle "Failed :(" p'
+          p'               -> showPuzzle "Failed :(" p'
 
   putStrLn ("Input: " <> p)
   putStrLn $ sideBySide [problem, candidateCounts, solution]

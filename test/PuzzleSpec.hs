@@ -1,9 +1,9 @@
 module PuzzleSpec where
 
-import Data.List (intercalate)
-import Puzzle
-import Puzzle.Print
-import Test.Hspec
+import           Data.List    (intercalate)
+import           Puzzle
+import           Puzzle.Print
+import           Test.Hspec
 
 spec :: Spec
 spec = describe "puzzle" $ do

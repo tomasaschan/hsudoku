@@ -1,13 +1,13 @@
 module Solver.NakedPairs where
 
-import Data.Maybe
-import Puzzle
-import Solver
+import           Data.Maybe
+import           Puzzle
+import           Solver
 
 nakedPairs :: Technique
 nakedPairs p = listToMaybe pairs >>= toEdit
   where
-    toEdit (_, _, [], _) = Nothing
+    toEdit (_, _, [], _)    = Nothing
     toEdit (r, c, v : _, _) = Just (r, c, v)
 
     pairs =

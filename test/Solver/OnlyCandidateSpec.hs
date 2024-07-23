@@ -2,9 +2,9 @@
 
 module Solver.OnlyCandidateSpec where
 
-import Puzzle
-import Solver.OnlyCandidate
-import Test.Hspec
+import           Puzzle
+import           Solver.OnlyCandidate
+import           Test.Hspec
 
 spec :: Spec
 spec = describe "only candidates technique" $ do

@@ -1,9 +1,9 @@
 module Solver.NakedPairsSpec where
 
-import Data.Maybe
-import Puzzle
-import Solver.NakedPairs
-import Test.Hspec
+import           Data.Maybe
+import           Puzzle
+import           Solver.NakedPairs
+import           Test.Hspec
 
 spec :: Spec
 spec = describe "naked pairs technique" $ do

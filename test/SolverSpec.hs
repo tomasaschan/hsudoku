@@ -1,11 +1,11 @@
 module SolverSpec where
 
-import Puzzle
-import Puzzle.Print
-import Solver
-import Solver.NakedPairs
-import Solver.OnlyCandidate
-import Test.Hspec
+import           Puzzle
+import           Puzzle.Print
+import           Solver
+import           Solver.NakedPairs
+import           Solver.OnlyCandidate
+import           Test.Hspec
 
 spec :: Spec
 spec = describe "solver" $ do

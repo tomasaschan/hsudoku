@@ -2,8 +2,8 @@
 
 module Puzzle where
 
-import qualified Data.Map as M
-import Data.Maybe
+import qualified Data.Map   as M
+import           Data.Maybe
 
 type Item = (Int, Int, Int)
 
@@ -36,7 +36,7 @@ type Component = [(Int, Int)]
 
 -- | Returns the components (row, column and subgrid) that contain the cell at (r, c)
 components :: Int -> Int -> [Component]
-components r c = fmap (filter (not . (== (r, c)))) $ items
+components r c = filter (/= (r, c)) <$> items
   where
     items = [[(r, c') | c' <- allColumns], [(r', c) | r' <- allRows], [(r', c') | r' <- sub r, c' <- sub c]]
     sub x = [x' .. x' + 2] where x' = 3 * (x `div` 3)
@@ -53,7 +53,7 @@ unsolved p = [(r, c) | r <- allRows, c <- allColumns, isNothing . at r c $ p]
 candidates :: Int -> Int -> Puzzle -> [Int]
 candidates r c p = case at r c p of
   Just v -> [v]
-  Nothing -> allNumbers `without` (catMaybes . (fmap (\(r', c') -> at r' c' p)) . concat $ components r c)
+  Nothing -> allNumbers `without` concatMap (mapMaybe (\(r', c') -> at r' c' p)) (components r c)
   where
     without xs ys = filter (`notElem` ys) xs
 
@@ -62,11 +62,11 @@ type Edit = (Int, Int, Int)
 edit :: Puzzle -> Edit -> Puzzle
 edit p (r, c, v) = M.insert (r, c) v p
 
-{-# HLINT countCandidates ignore "Use catMaybes" #-}
+{-# HLINT ignore countCandidates "Use catMaybes" #-}
 countCandidates :: Puzzle -> Puzzle
 countCandidates p = M.mapMaybe id $ M.fromList ([((r, c), v r c) | r <- allRows, c <- allColumns])
   where
     v r c =
       case at r c p of
         Nothing -> Just $ length $ candidates r c p
-        Just _ -> Nothing
+        Just _  -> Nothing
