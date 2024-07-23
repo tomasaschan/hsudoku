@@ -1,12 +1,11 @@
 module Main (main) where
 
-import System.Environment
-
 import Puzzle
 import Puzzle.Print
 import Solver
 import Solver.NakedPairs
 import Solver.OnlyCandidate
+import System.Environment
 
 main :: IO ()
 main = do

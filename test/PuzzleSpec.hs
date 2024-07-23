@@ -113,7 +113,6 @@ spec = describe "puzzle" $ do
                      ]
                    ]
 
-
   describe "candidates" $ do
     let puzzle' = puzzle "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
 

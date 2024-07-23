@@ -36,9 +36,9 @@ type Component = [(Int, Int)]
 
 -- | Returns the components (row, column and subgrid) that contain the cell at (r, c)
 components :: Int -> Int -> [Component]
-components r c = fmap (filter (not . (==(r,c)))) $ items
+components r c = fmap (filter (not . (== (r, c)))) $ items
   where
-    items = [ [(r, c') | c' <- allColumns], [(r',c) | r' <- allRows], [(r', c') | r' <- sub r, c' <- sub c]    ]
+    items = [[(r, c') | c' <- allColumns], [(r', c) | r' <- allRows], [(r', c') | r' <- sub r, c' <- sub c]]
     sub x = [x' .. x' + 2] where x' = 3 * (x `div` 3)
 
 isSolved :: Puzzle -> Bool
@@ -61,7 +61,6 @@ type Edit = (Int, Int, Int)
 
 edit :: Puzzle -> Edit -> Puzzle
 edit p (r, c, v) = M.insert (r, c) v p
-
 
 {-# HLINT countCandidates ignore "Use catMaybes" #-}
 countCandidates :: Puzzle -> Puzzle

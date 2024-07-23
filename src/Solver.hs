@@ -1,8 +1,8 @@
 module Solver where
 
-import Puzzle
-import Data.Maybe
 import Data.Function
+import Data.Maybe
+import Puzzle
 
 type Technique = Puzzle -> Maybe Edit
 
