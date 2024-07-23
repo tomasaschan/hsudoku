@@ -24,7 +24,7 @@ solveAll (p : ps) = do
   putStrLn ("Input: " <> p)
   putStrLn $ sideBySide [
                           showPuzzle "Unsolved:" puzzle',
-                          showCandidates puzzle',
+                          showCandidates "Candidates:" puzzle',
                           if isSolved solved
                             then showPuzzle "Solved!" solved
                             else showPuzzle "Failed :(" solved

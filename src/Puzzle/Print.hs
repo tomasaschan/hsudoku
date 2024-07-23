@@ -24,8 +24,8 @@ pretty f p = render $ text $ top <> rows <> bottom
 showPuzzle :: String -> Puzzle -> String
 showPuzzle label p = label <> "\n" <> pretty (\case Solved v -> Just (show v); _ -> Nothing) p
 
-showCandidates ::Puzzle -> String
-showCandidates p = "Candidates\n" <> pretty (\case Candidates vs -> Just $ show (length vs); _ -> Nothing) p
+showCandidates ::String -> Puzzle -> String
+showCandidates label p = label <> "\n" <> pretty (\case Candidates vs -> Just $ show (length vs); _ -> Nothing) p
 
 showCell :: Cell -> Maybe String
 showCell (Solved v) = Just $ show v
