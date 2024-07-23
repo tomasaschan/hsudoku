@@ -1,6 +1,7 @@
 module PuzzleSpec where
 
 import           Data.List    (intercalate)
+import qualified Data.Map     as M
 import           Puzzle
 import           Puzzle.Print
 import           Test.Hspec
@@ -10,10 +11,14 @@ spec = describe "puzzle" $ do
   describe "io" $ do
     it "can read and display the example" $ do
       let input = "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
+
+      length (M.keys (puzzle input)) `shouldBe` 81
+
       let expected =
             intercalate
               "\n"
-              [ "┏━┯━┯━┳━┯━┯━┳━┯━┯━┓",
+              [ "a label",
+                "┏━┯━┯━┳━┯━┯━┳━┯━┯━┓",
                 "┃ │ │4┃3│ │ ┃2│ │9┃",
                 "┠─┼─┼─╂─┼─┼─╂─┼─┼─┨",
                 "┃ │ │5┃ │ │9┃ │ │1┃",
@@ -35,7 +40,7 @@ spec = describe "puzzle" $ do
               ]
               <> "\n"
 
-      let actual = pretty . puzzle $ input
+      let actual = showPuzzle "a label" . puzzle $ input
       actual `shouldBe` expected
 
   describe "components" $ do
@@ -117,7 +122,7 @@ spec = describe "puzzle" $ do
     let puzzle' = puzzle "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
 
     it "returns candidates in the top left correctly" $ do
-      candidates 0 0 puzzle' `shouldBe` [8]
+      puzzle' M.! (0,0) `shouldBe` Candidates [8]
 
     it "returns candidates in the mid right correctly" $ do
-      candidates 4 7 puzzle' `shouldBe` [2, 3, 5, 6]
+      puzzle' M.! (4,7) `shouldBe` Candidates [2, 3, 5, 6]

@@ -1,6 +1,7 @@
 module Solver where
 
 import           Data.Function
+import qualified Data.Map      as M
 import           Data.Maybe
 import           Puzzle
 
@@ -14,3 +15,14 @@ trySolve t p = case t p of
 
 combine :: [Technique] -> Technique
 combine ts p = mapMaybe ($ p) ts & listToMaybe
+
+data Edit = Solve Coord Int | Eliminate (M.Map Coord [Int]) deriving (Show, Eq)
+
+edit :: Puzzle -> Edit -> Puzzle
+edit p (Solve c v) = M.insert c (Solved v) p
+edit p (Eliminate m) = M.foldrWithKey eliminate p m
+  where
+    eliminate k cs p' =
+      case p' M.! k of
+        (Candidates cs') -> M.insert k (Candidates (filter (`notElem` cs) cs')) p'
+        _                -> p'
