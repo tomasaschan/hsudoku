@@ -1,7 +1,6 @@
 module SolverSpec where
 
 import Puzzle
--- import           Puzzle.Print
 import Solver
 import Solver.NakedPairs
 import Solver.OnlyCandidate
@@ -30,18 +29,15 @@ spec = describe "solver" $ do
 
     solver (puzzle problem) `shouldBe` puzzle solved
 
--- before (return ())
---   -- ( putStrLn
---   --     ( sideBySide
---   --         [ showPuzzle "before" (puzzle "000090015000100840050380207000530000000602431012009500028003004037000002400050083"),
---   --           showPuzzle "after" (solver $ puzzle "000090015000100840050380207000530000000602431012009500028003004037000002400050083"),
---   --           showCandidates "candidates after" (solver $ puzzle "000090015000100840050380207000530000000602431012009500028003004037000002400050083"),
---   --           showPuzzle "correct" (puzzle "284796315673125849951384267746531928895672431312849576128963754537418692469257183")
---   --         ]
---   --     )
---   -- )
---   $ do
---     it "makes a mistake somewhere" $ do
---       let p = puzzle "000090015000100840050380207000530000000602431012009500028003004037000002400050083"
+  describe "there are multiple options" $ do
+    let p = puzzle "985724613476531289001689547164297835758316492009845761597168324012453970043972150"
 
---       solver p `shouldSatisfy` isSolved
+    it "setting (2,0) to 2 and (7,0) to 6 is valid" $ do
+      let edits = [Solve (2, 0) 2, Solve (7, 0) 6]
+      let solved = trySolve onlyCandidate $ foldr (flip edit) p edits
+      solved `shouldSatisfy` isSolved
+
+    it "setting (2,0) to 3 and (7,0) to 8 is valid" $ do
+      let edits = [Solve (2, 0) 3, Solve (7, 0) 8]
+      let solved = trySolve onlyCandidate $ foldr (flip edit) p edits
+      solved `shouldSatisfy` isSolved
