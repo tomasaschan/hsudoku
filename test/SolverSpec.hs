@@ -2,13 +2,12 @@ module SolverSpec where
 
 import Puzzle
 import Solver
-import Solver.NakedPairs
-import Solver.OnlyCandidate
+import Solver.NakedSingle
 import Test.Hspec
 
 spec :: Spec
 spec = describe "solver" $ do
-  let solver = trySolve (combine [onlyCandidate, nakedPairs])
+  let solver = trySolve (combine [nakedSingle])
 
   it "solves the first example" $ do
     let problem = "070000043040009610800634900094052000358460020000800530080070091902100005007040802"
@@ -34,10 +33,10 @@ spec = describe "solver" $ do
 
     it "setting (2,0) to 2 and (7,0) to 6 is valid" $ do
       let edits = [Solve (2, 0) 2, Solve (7, 0) 6]
-      let solved = trySolve onlyCandidate $ foldr (flip edit) p edits
+      let solved = trySolve nakedSingle $ foldr (flip edit) p edits
       solved `shouldSatisfy` isSolved
 
     it "setting (2,0) to 3 and (7,0) to 8 is valid" $ do
       let edits = [Solve (2, 0) 3, Solve (7, 0) 8]
-      let solved = trySolve onlyCandidate $ foldr (flip edit) p edits
+      let solved = trySolve nakedSingle $ foldr (flip edit) p edits
       solved `shouldSatisfy` isSolved

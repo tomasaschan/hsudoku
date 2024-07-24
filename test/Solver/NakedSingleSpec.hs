@@ -1,10 +1,10 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Solver.OnlyCandidateSpec where
+module Solver.NakedSingleSpec where
 
 import Puzzle
 import Solver
-import Solver.OnlyCandidate
+import Solver.NakedSingle
 import Test.Hspec
 
 spec :: Spec
@@ -21,6 +21,6 @@ spec = describe "only candidates technique" $ do
           ] ::
             [Edit]
 
-    let actual = onlyCandidate p
+    let actual = nakedSingle p
 
     actual `shouldSatisfy` (\case Just e -> e `elem` expected; _ -> False)

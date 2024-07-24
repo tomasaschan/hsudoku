@@ -5,8 +5,7 @@ module Main (main) where
 import Puzzle
 import Puzzle.Print
 import Solver
-import Solver.NakedPairs
-import Solver.OnlyCandidate
+import Solver.NakedSingle
 import System.Environment
 
 main :: IO ()
@@ -19,7 +18,7 @@ solveAll :: [String] -> IO ()
 solveAll [] = return ()
 solveAll (p : ps) = do
   let puzzle' = puzzle p
-  let solved = trySolve (combine [onlyCandidate, nakedPairs]) puzzle'
+  let solved = trySolve (combine [nakedSingle]) puzzle'
 
   putStrLn ("Input: " <> p)
   putStrLn $
