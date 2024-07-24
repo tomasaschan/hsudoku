@@ -29,4 +29,4 @@ eliminate c cs p' =
     _ -> p'
 
 eliminateFromAffected :: Coord -> Int -> Puzzle -> Puzzle
-eliminateFromAffected (r, c) v p' = foldr (\c' p'' -> eliminate c' [v] p'') p' (concat $ components r c)
+eliminateFromAffected (r, c) v p' = foldr (\c' p'' -> eliminate c' [v] p'') p' (concat $ components (r, c))

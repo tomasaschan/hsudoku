@@ -29,17 +29,19 @@ puzzle p = M.union allSolved allCandidates
   allUnsolved = [(r, c) | r <- allRows, c <- allColumns, (r, c) `M.notMember` allSolved]
   allCandidates = M.fromList . fmap oneCandidates $ allUnsolved
   oneSolved (i, c) = ((row i, col i), Solved (read [c]))
-  oneCandidates (r, c) = ((r, c),) $ Candidates $ candidates allSolved (components r c)
+  oneCandidates (r, c) = ((r, c),) $ Candidates $ candidates allSolved (components (r, c))
   row i = i `div` 9
   col i = i `mod` 9
 
 type Component = [(Int, Int)]
 
 -- | Returns the components (row, column and subgrid) that contain the cell at (r, c)
-components :: Int -> Int -> [Component]
-components r c = filter (/= (r, c)) <$> items
+components :: Coord -> [Component]
+components (r, c) = filter (/=(r,c)) <$> [row, col, subgrid]
  where
-  items = [[(r, c') | c' <- allColumns], [(r', c) | r' <- allRows], [(r', c') | r' <- sub r, c' <- sub c]]
+  row = [(r, c') | c' <- allColumns]
+  col = [(r', c) | r' <- allRows]
+  subgrid = [(r', c') | r' <- sub r, c' <- sub c]
   sub x = [x' .. x' + 2] where x' = 3 * (x `div` 3)
 
 isSolved :: Puzzle -> Bool

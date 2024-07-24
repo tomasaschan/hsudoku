@@ -6,7 +6,7 @@ import Solver.NakedSingle
 import Test.Hspec
 
 spec :: Spec
-spec = describe "solver" $ do
+spec = do
   let solver = trySolve (combine [nakedSingle])
 
   it "solves the first example" $ do

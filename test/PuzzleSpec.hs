@@ -7,7 +7,7 @@ import Puzzle.Print
 import Test.Hspec
 
 spec :: Spec
-spec = describe "puzzle" $ do
+spec = do
   describe "io" $ do
     it "can read and display the example" $ do
       let input = "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
@@ -45,7 +45,7 @@ spec = describe "puzzle" $ do
 
   describe "components" $ do
     it "returns components in the top left correctly" $ do
-      let actual = components 0 0
+      let actual = components (0, 0)
 
       actual
         `shouldBe` [
@@ -85,7 +85,7 @@ spec = describe "puzzle" $ do
                    ]
 
     it "returns components in the mid right correctly" $ do
-      let actual = components 4 8
+      let actual = components (4, 8)
 
       actual
         `shouldBe` [

@@ -8,7 +8,7 @@ import Solver.NakedSingle
 import Test.Hspec
 
 spec :: Spec
-spec = describe "only candidates technique" $ do
+spec = do
   let p = puzzle "005024013006031000001089507160097005758300090009805000507060324010450970043002000"
 
   it "should emit correct edits" $ do

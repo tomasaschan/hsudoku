@@ -1,12 +1,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE LambdaCase #-}
 
-module Puzzle.Print (
-  showPuzzle,
-  showCandidates,
-  sideBySide,
-  pack,
-) where
+module Puzzle.Print where
 
 import Data.List.Extra
 import Data.Map
@@ -39,3 +34,11 @@ sideBySide (a : b : rest) = sideBySide (unlines (zipWithLongest (\x y -> fromMay
 
 pack :: Puzzle -> String
 pack = concatMap (show . fromMaybe 0 . (\case Solved v -> Just v; _ -> Nothing))
+
+packCandidates :: Puzzle -> String
+packCandidates = unlines . Data.Maybe.mapMaybe toLine . toList
+  where
+    toLine x =
+      case x of
+        (c, Candidates vs) -> Just $ show c <> ": " <> show vs
+        _ -> Nothing
