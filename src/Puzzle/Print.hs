@@ -32,14 +32,10 @@ showPuzzle label p = label <> "\n" <> pretty (\case Solved v -> Just (show v); _
 showCandidates :: String -> Puzzle -> String
 showCandidates label p = label <> "\n" <> pretty (\case Candidates vs -> Just $ show (length vs); _ -> Nothing) p
 
-showCell :: Cell -> Maybe String
-showCell (Solved v) = Just $ show v
-showCell _          = Nothing
-
 sideBySide :: [String] -> String
 sideBySide [] = ""
-sideBySide [single] = single
-sideBySide (a : b : rest) = sideBySide (unlines (zipWithLongest (\x y -> fromMaybe "" x <> "  " <> fromMaybe "" y) (printf "%-19s" <$> lines a) (lines b)) : rest)
+sideBySide [single] = unlines $ printf "%-19s" <$> lines single
+sideBySide (a : b : rest) = sideBySide (unlines (zipWithLongest (\x y -> fromMaybe "" x <> "  " <> fromMaybe "" y) (printf "%-19s" <$> lines a) (printf "%-19s" <$> lines b)) : rest)
 
 pack :: Puzzle -> String
 pack = concatMap (show . fromMaybe 0 . (\case Solved v -> Just v; _ -> Nothing))
