@@ -13,18 +13,30 @@ main :: IO ()
 main = do
   args <- getArgs
 
-  solveAll args
+  solved <- solveAll 0 args
 
-solveAll :: [String] -> IO ()
-solveAll [] = return ()
-solveAll (p : ps) = do
+  putStr $ "Solved " ++ show solved
+
+  if solved /= length args
+    then do
+      putStrLn " puzzles before failing"
+      exitFailure
+    else do
+      putStrLn " puzzles"
+      exitSuccess
+
+solveAll :: Int -> [String] -> IO Int
+solveAll n [] = return n
+solveAll n (p : ps) = do
   putStr p
   hFlush stdout
   let puzzle' = puzzle p
   let solved = trySolve (combine [nakedSingle, hiddenSingle]) puzzle'
 
   if isSolved solved
-    then putStrLn " ✅"
+    then do
+      putStrLn " ✅"
+      solveAll (n + 1) ps
     else do
       putStrLn " ❌"
 
@@ -42,6 +54,4 @@ solveAll (p : ps) = do
       putStrLn "Candidates at end:"
       putStrLn $ packCandidates solved
 
-      exitFailure
-
-  solveAll ps
+      return n
