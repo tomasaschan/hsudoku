@@ -1,11 +1,12 @@
 module Main (main) where
 
-import Control.Monad
 import Puzzle
 import Puzzle.Print
 import Solver
 import Solver.NakedSingle
 import System.Environment
+import System.Exit
+import System.IO
 
 main :: IO ()
 main = do
@@ -16,19 +17,25 @@ main = do
 solveAll :: [String] -> IO ()
 solveAll [] = return ()
 solveAll (p : ps) = do
+  putStr p
+  hFlush stdout
   let puzzle' = puzzle p
   let solved = trySolve (combine [nakedSingle]) puzzle'
 
-  putStrLn ("Input: " <> p)
-  putStrLn $
-    sideBySide
-      [ showPuzzle "Unsolved:" puzzle',
-        showCandidates "Candidates:" puzzle',
-        if isSolved solved
-          then showPuzzle "Solved!" solved
-          else showPuzzle "Failed :(" solved
-      ]
+  if isSolved solved
+    then putStrLn " ✅"
+    else do
+      putStrLn " ❌"
 
-  unless (isSolved solved) $ putStrLn $ "State at end: " <> pack solved
+      putStrLn ""
+      putStrLn $
+        sideBySide
+          [ showPuzzle "Input:" puzzle',
+            showPuzzle "State at end:" solved
+          ]
+
+      putStrLn "State at end:"
+      putStrLn $ pack solved
+      exitFailure
 
   solveAll ps
