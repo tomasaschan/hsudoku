@@ -14,7 +14,7 @@ set -e
 # not exit on the first failure; that's what the while loop (with set -e) does.
 <data/sudoku.csv \
 awk -F, 'NR > 1 {print $1}' \
-| xargs -n100 echo 2>/dev/null \
+| xargs echo 2>/dev/null \
 | while read -r puzzles; do
     echo "$puzzles" | xargs stack exec hsudoku-exe
 done
