@@ -1,7 +1,6 @@
-{-# LANGUAGE LambdaCase #-}
-
 module Main (main) where
 
+import Control.Monad
 import Puzzle
 import Puzzle.Print
 import Solver
@@ -30,8 +29,6 @@ solveAll (p : ps) = do
           else showPuzzle "Failed :(" solved
       ]
 
-  if not $ isSolved solved
-    then putStrLn $ "State at end: " <> pack solved
-    else return ()
+  unless (isSolved solved) $ putStrLn $ "State at end: " <> pack solved
 
   solveAll ps
