@@ -2,10 +2,11 @@ module Solver.NakedPairs where
 
 -- import           Data.Maybe
 -- import           Puzzle
-import           Solver
+import Solver
 
 nakedPairs :: Technique
 nakedPairs = const Nothing
+
 --  listToMaybe pairs >>= toEdit
 --   where
 --     toEdit (_, _, [], _)    = Nothing

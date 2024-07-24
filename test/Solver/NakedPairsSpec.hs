@@ -1,17 +1,26 @@
 module Solver.NakedPairsSpec where
 
 -- -- import           Data.Maybe
--- import           Puzzle
+import Puzzle
+import Puzzle.Print
 -- import Solver
 -- import           Solver.NakedPairs
-import           Test.Hspec
+import Test.Hspec
 
 spec :: Spec
-spec = return ()
--- spec = describe "naked pairs technique" $ do
---   let p = puzzle "985724613476531289001689547164297835758316492009845761597168324012453970043972150"
+spec = describe "naked pairs technique" $ do
+  let p = puzzle "985724613476531289001689547164297835758316492009845761597168324012453970043972150"
 
---   it "finds a naked pair and constructs a valid edit from it" $ do
+  let display =
+        sideBySide
+          [ showPuzzle "before" p,
+            showCandidates "candidates" p
+          ]
+
+  before (putStrLn display) $ it "finds a naked pair and constructs a valid edit from it" $ do
+    let x = 1 :: Int
+    x `shouldBe` 2
+
 --     let e = nakedPairs p :: Maybe Edit
 
 --     let allowed =

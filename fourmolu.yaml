@@ -1,0 +1,4 @@
+indentation: 2
+respectful: false
+import-grouping: by-scope-then-qualified
+comma-style: trailing

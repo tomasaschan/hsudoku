@@ -2,12 +2,12 @@
 
 module Main (main) where
 
-import           Puzzle
-import           Puzzle.Print
-import           Solver
-import           Solver.NakedPairs
-import           Solver.OnlyCandidate
-import           System.Environment
+import Puzzle
+import Puzzle.Print
+import Solver
+import Solver.NakedPairs
+import Solver.OnlyCandidate
+import System.Environment
 
 main :: IO ()
 main = do
@@ -22,13 +22,14 @@ solveAll (p : ps) = do
   let solved = trySolve (combine [onlyCandidate, nakedPairs]) puzzle'
 
   putStrLn ("Input: " <> p)
-  putStrLn $ sideBySide [
-                          showPuzzle "Unsolved:" puzzle',
-                          showCandidates "Candidates:" puzzle',
-                          if isSolved solved
-                            then showPuzzle "Solved!" solved
-                            else showPuzzle "Failed :(" solved
-                        ]
+  putStrLn $
+    sideBySide
+      [ showPuzzle "Unsolved:" puzzle',
+        showCandidates "Candidates:" puzzle',
+        if isSolved solved
+          then showPuzzle "Solved!" solved
+          else showPuzzle "Failed :(" solved
+      ]
 
   if not $ isSolved solved
     then putStrLn $ "State at end: " <> pack solved

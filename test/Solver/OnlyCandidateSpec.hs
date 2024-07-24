@@ -2,10 +2,10 @@
 
 module Solver.OnlyCandidateSpec where
 
-import           Puzzle
-import           Solver
-import           Solver.OnlyCandidate
-import           Test.Hspec
+import Puzzle
+import Solver
+import Solver.OnlyCandidate
+import Test.Hspec
 
 spec :: Spec
 spec = describe "only candidates technique" $ do
@@ -18,7 +18,8 @@ spec = describe "only candidates technique" $ do
             Solve (4, 5) 6,
             Solve (6, 5) 8,
             Solve (7, 2) 2
-          ] :: [Edit]
+          ] ::
+            [Edit]
 
     let actual = onlyCandidate p
 

@@ -1,10 +1,10 @@
 module PuzzleSpec where
 
-import           Data.List    (intercalate)
-import qualified Data.Map     as M
-import           Puzzle
-import           Puzzle.Print
-import           Test.Hspec
+import Data.List (intercalate)
+import qualified Data.Map as M
+import Puzzle
+import Puzzle.Print
+import Test.Hspec
 
 spec :: Spec
 spec = describe "puzzle" $ do
@@ -50,6 +50,7 @@ spec = describe "puzzle" $ do
       actual
         `shouldBe` [
                      -- row 0
+
                      [ (0, 1),
                        (0, 2),
                        (0, 3),
@@ -60,6 +61,7 @@ spec = describe "puzzle" $ do
                        (0, 8)
                      ],
                      -- col 0
+
                      [ (1, 0),
                        (2, 0),
                        (3, 0),
@@ -70,6 +72,7 @@ spec = describe "puzzle" $ do
                        (8, 0)
                      ],
                      -- subgrid 0
+
                      [ (0, 1),
                        (0, 2),
                        (1, 0),
@@ -87,6 +90,7 @@ spec = describe "puzzle" $ do
       actual
         `shouldBe` [
                      -- row 4
+
                      [ (4, 0),
                        (4, 1),
                        (4, 2),
@@ -97,6 +101,7 @@ spec = describe "puzzle" $ do
                        (4, 7)
                      ],
                      -- col 8
+
                      [ (0, 8),
                        (1, 8),
                        (2, 8),
@@ -107,6 +112,7 @@ spec = describe "puzzle" $ do
                        (8, 8)
                      ],
                      -- subgrid 5
+
                      [ (3, 6),
                        (3, 7),
                        (3, 8),
@@ -122,7 +128,7 @@ spec = describe "puzzle" $ do
     let puzzle' = puzzle "004300209005009001070060043006002087190007400050083000600000105003508690042910300"
 
     it "returns candidates in the top left correctly" $ do
-      puzzle' M.! (0,0) `shouldBe` Candidates [8]
+      puzzle' M.! (0, 0) `shouldBe` Candidates [8]
 
     it "returns candidates in the mid right correctly" $ do
-      puzzle' M.! (4,7) `shouldBe` Candidates [2, 3, 5, 6]
+      puzzle' M.! (4, 7) `shouldBe` Candidates [2, 3, 5, 6]
