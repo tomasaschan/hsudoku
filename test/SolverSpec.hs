@@ -22,7 +22,7 @@ spec = do
     solver (puzzle problem) `shouldBe` puzzle solved
 
   it "solves ron's example" $ do
-    pendingWith "skipping all solver tests until naked pairs is fixed"
+    pendingWith "skipping until we have a solver that can detect branches with multiple valid solutions"
     let problem = "005024013006031000001089507160097005758300090009805000507060324010450970043002000"
     let solved = "985724613476531289231689547164297835758316492329845761597168324612453978843972156"
 
